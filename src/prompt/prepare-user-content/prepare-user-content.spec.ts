@@ -1,6 +1,5 @@
 import { describe, expect, it } from "vitest";
 import {
-  CARET_MACROS,
   SELECTION_END_MACROS,
   SELECTION_START_MACROS,
 } from "../constants";
@@ -43,7 +42,7 @@ describe("prepareUserContent", () => {
       );
     });
 
-    it("should use caret macro when startIdx equals endIdx", () => {
+    it("should return full content without markers when startIdx equals endIdx", () => {
       const fileContent = "Hello world";
       const selectionRange: TextSelection = {
         anchor: { line: 0, ch: 5 },
@@ -61,7 +60,7 @@ describe("prepareUserContent", () => {
         userPromptOptions,
       });
 
-      expect(result).toBe("Hello" + CARET_MACROS + " world");
+      expect(result).toBe("Hello world");
     });
 
     it("should handle empty file content", () => {
@@ -82,7 +81,7 @@ describe("prepareUserContent", () => {
         userPromptOptions,
       });
 
-      expect(result).toBe(CARET_MACROS);
+      expect(result).toBe("");
     });
 
     it("should handle selection at the start of file", () => {
@@ -503,7 +502,7 @@ describe("prepareUserContent", () => {
         userPromptOptions,
       });
 
-      expect(result).toBe("is " + CARET_MACROS + "a t");
+      expect(result).toBe("is a t");
     });
   });
 

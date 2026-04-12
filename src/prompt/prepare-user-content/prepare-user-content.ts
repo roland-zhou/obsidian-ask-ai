@@ -1,5 +1,4 @@
 import {
-  CARET_MACROS,
   SELECTION_END_MACROS,
   SELECTION_START_MACROS,
 } from "../constants";
@@ -53,7 +52,7 @@ function getSelectedContentWithMacros({
   selectionRange: TextSelectionRange;
 }): string {
   return from === to
-    ? CARET_MACROS
+    ? ""
     : SELECTION_START_MACROS + text.slice(from, to) + SELECTION_END_MACROS;
 }
 
