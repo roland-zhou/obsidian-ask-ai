@@ -54,8 +54,9 @@ Improve the selected text.
 Keep the original meaning, but make it clearer and more concise.
 ```
 
-5. Open any note, select text (or place cursor), then run command:
+5. Open any note, then run the command:
    - `Ask AI: Writing / Improve`
+   - Select text beforehand to target a specific passage, or just position your cursor and let the plugin decide what context to use (see [Context for LLM](#context-for-llm)).
 
 > The better you are with the prompting, the better results you get, it's mostly on you :)
 
@@ -98,11 +99,21 @@ This is useful for prompts that are designed to transform, analyze, or modify sp
 
 ### Context for LLM
 
-By default, the plugin sends the entire file content to the LLM, marking the areas that should be modified (either a text selection or the caret position). The LLM uses the full file as context when making modifications.
+When you **select text**, the plugin sends that selection as context and streams the response back in place.
 
-You can limit the context window by specifying the number of characters to include before and after the selection or caret position. This is particularly useful when working with very long documents or when you want to focus the LLM's attention on a specific area.
+When the **cursor is placed without a selection**, the plugin picks context automatically based on where the cursor is:
 
-To configure the context size, add these parameters to your prompt file's frontmatter:
+| Cursor position | Context sent to LLM | Response inserted |
+|---|---|---|
+| Mid-line, or on the first line | Current line only | After the current line (`\n\n`) |
+| Start of a line directly below a paragraph | The preceding paragraph block | After the current line (`\n\n`) |
+| Start of a line separated from content by blank lines | Entire file | After the current line, preceded by `\n\n---\n\n` |
+
+This means you can point the cursor at a line to refine it, position right below a paragraph to continue or transform it, or place the cursor in open space to generate something from the full document.
+
+#### Limiting context size
+
+You can override how much of the file is included around the selection or cursor by adding these parameters to your prompt file's frontmatter:
 
 ```yaml
 ---
@@ -112,8 +123,8 @@ ask-ai-context-size-after: 0
 Your prompt content here...
 ```
 
-- `ask-ai-context-size-before`: Number of characters to include before the selection (default: entire file)
-- `ask-ai-context-size-after`: Number of characters to include after the selection (default: entire file)
+- `ask-ai-context-size-before`: Number of characters to include before the selection (default: entire context)
+- `ask-ai-context-size-after`: Number of characters to include after the selection (default: entire context)
 
 ## Built-in command: custom prompt
 
