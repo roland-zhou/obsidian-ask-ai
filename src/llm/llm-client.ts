@@ -52,6 +52,8 @@ export class LLMClient {
       userContent: userContentString,
     });
 
+    console.log("[Ask AI] LLM request", { model: this.model, messages });
+
     try {
       const response = await this.client.chat.completions.create(
         {
@@ -64,14 +66,19 @@ export class LLMClient {
         },
       );
 
+      let fullOutput = "";
       for await (const chunk of response) {
         if (signal?.aborted) {
           throw new AbortError();
         }
         if (chunk.choices[0]?.delta.content) {
-          yield chunk.choices[0]?.delta.content;
+          const content = chunk.choices[0]?.delta.content;
+          fullOutput += content;
+          yield content;
         }
       }
+
+      console.log("[Ask AI] LLM response", { output: fullOutput });
     } catch (error: unknown) {
       if (error instanceof APIUserAbortError) {
         throw new AbortError();
