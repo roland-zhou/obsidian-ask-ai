@@ -13,9 +13,11 @@ import {
 import { mapLlmErrorToReadable } from "./llm/error-handler";
 import { LLMClient } from "./llm/llm-client";
 import { logger } from "./logger";
+import { resolveAutoSelection } from "./prompt/auto-selection/auto-selection";
 import { parsePromptOptionsFromFileProperties } from "./prompt/parse-prompt-options-from-file-properties/parse-prompt-options-from-file-properties";
 import { mergePromptOptions } from "./prompt/prompt-option-registry";
 import { UserContentSelection } from "./prompt/user-content-selection/user-content-selection";
+import { mapIdxToCursorPosition } from "./utils/obsidian/map-idx-to-cursor-position/map-idx-to-cursor-position";
 import type { PromptOptions } from "./prompt/user-prompt-options";
 import { DEFAULT_PROMPT_OPTIONS } from "./prompt/user-prompt-options";
 import { UserPromptParams } from "./prompt/user-prompt-params";
@@ -277,7 +279,6 @@ export default class LlmShortcutPlugin extends Plugin {
     });
 
     const userContentSelection = rawSelection.trim();
-    this.applySelection(editor, userContentSelection);
 
     const emptySelection = userContentSelection.isEmpty();
 
@@ -288,6 +289,28 @@ export default class LlmShortcutPlugin extends Plugin {
       return;
     }
 
+    let effectiveUserContentSelection = userContentSelection;
+    let insertPrefix: string | undefined;
+
+    if (emptySelection) {
+      const cursor = editor.getCursor();
+      const autoSelection = resolveAutoSelection(text, cursor);
+
+      const contextEndPosition = mapIdxToCursorPosition(
+        autoSelection.contextText,
+        autoSelection.contextText.length,
+      );
+      effectiveUserContentSelection = new UserContentSelection(
+        autoSelection.contextText,
+        { anchor: contextEndPosition, head: contextEndPosition },
+      );
+
+      editor.setCursor(autoSelection.insertPosition);
+      insertPrefix = autoSelection.insertPrefix;
+    } else {
+      this.applySelection(editor, userContentSelection);
+    }
+
     const abortController = new AbortController();
     this.abortController = abortController;
 
@@ -295,7 +318,7 @@ export default class LlmShortcutPlugin extends Plugin {
 
     try {
       const responseStream = this.llmClient.getResponse({
-        userContentSelection,
+        userContentSelection: effectiveUserContentSelection,
         userPromptString,
         userPromptOptions,
         signal: abortController.signal,
@@ -311,6 +334,7 @@ export default class LlmShortcutPlugin extends Plugin {
         await this.updateEditorContentWithResponse({
           editor,
           responseStream,
+          insertPrefix,
         });
       }
     } catch (error) {
@@ -330,17 +354,23 @@ export default class LlmShortcutPlugin extends Plugin {
   private async updateEditorContentWithResponse({
     editor,
     responseStream,
+    insertPrefix = "",
   }: {
     editor: Editor;
     responseStream: AsyncGenerator<string, void, unknown>;
+    insertPrefix?: string;
   }) {
     const fromCursor = editor.getCursor("from");
+    const debugPrefix =
+      process.env.NODE_ENV === "development"
+        ? `[DEV v${this.manifest.version}] `
+        : "";
 
     let text = "";
     for await (const chunk of responseStream) {
       text += chunk;
 
-      this.updateSelectedText(editor, text, fromCursor);
+      this.updateSelectedText(editor, insertPrefix + debugPrefix + text, fromCursor);
 
       // To trigger the UI update
       await nextFrame();
@@ -350,9 +380,10 @@ export default class LlmShortcutPlugin extends Plugin {
       editor.undo();
     }
 
-    this.updateSelectedText(editor, text, fromCursor);
+    const finalText = insertPrefix + debugPrefix + text;
+    this.updateSelectedText(editor, finalText, fromCursor);
 
-    editor.setSelection(fromCursor, incChar(fromCursor, text.length));
+    editor.setSelection(fromCursor, incChar(fromCursor, finalText.length));
   }
 
   private async showPopUpWithResponse({

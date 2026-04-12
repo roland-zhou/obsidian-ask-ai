@@ -17,6 +17,9 @@ const ctx = await context({
   outdir: ".",
   bundle: true,
   external: ["obsidian"],
+  define: {
+    "process.env.NODE_ENV": isDev ? '"development"' : '"production"',
+  },
   sourcemap: isDev ? "inline" : false,
   minify: !isDev,
   treeShaking: true,
