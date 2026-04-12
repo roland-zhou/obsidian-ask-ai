@@ -1,4 +1,8 @@
-# LLM Shortcut
+# Ask AI
+
+> **Note:** This is a fork of [chernodub/obsidian-llm-shortcut](https://github.com/chernodub/obsidian-llm-shortcut) with additional changes.
+
+---
 
 [![downloads shield](https://img.shields.io/badge/dynamic/json?logo=obsidian&color=%23483699&label=downloads&query=%24%5B%22llm-shortcut%22%5D.downloads&url=https%3A%2F%2Fraw.githubusercontent.com%2Fobsidianmd%2Fobsidian-releases%2Fmaster%2Fcommunity-plugin-stats.json)](https://www.obsidianstats.com/plugins/llm-shortcut)
 
