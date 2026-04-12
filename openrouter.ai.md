@@ -1,4 +1,4 @@
-# How to Set Up LLM Shortcut Plugin with OpenRouter.AI
+# How to Set Up Ask AI Plugin with OpenRouter.AI
 
 - Top up your account https://openrouter.ai/settings/credits
 - Create an API key https://openrouter.ai/settings/keys

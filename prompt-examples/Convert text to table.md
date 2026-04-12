@@ -1,7 +1,7 @@
 ---
-llm-shortcut-selection-mode: selection-only
-llm-shortcut-context-size-before: "256"
-llm-shortcut-context-size-after: "256"
+ask-ai-selection-mode: selection-only
+ask-ai-context-size-before: "256"
+ask-ai-context-size-after: "256"
 ---
 Convert the selected text to a Markdown table.
 Preserve the structure of the text to form rows and columns.

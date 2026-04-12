@@ -6,14 +6,14 @@ import {
   PromptOptions,
 } from "../user-prompt-options";
 
-export const SELECTION_MODE_PROP_NAME = "llm-shortcut-selection-mode";
+export const SELECTION_MODE_PROP_NAME = "ask-ai-selection-mode";
 export const SELECTION_ONLY_PROP_VALUE = "selection-only";
 
-export const CONTEXT_SIZE_BEFORE_PROP_NAME = "llm-shortcut-context-size-before";
-export const CONTEXT_SIZE_AFTER_PROP_NAME = "llm-shortcut-context-size-after";
+export const CONTEXT_SIZE_BEFORE_PROP_NAME = "ask-ai-context-size-before";
+export const CONTEXT_SIZE_AFTER_PROP_NAME = "ask-ai-context-size-after";
 
 export const PROMPT_RESPONSE_PROCESSING_MODE_PROP_NAME =
-  "llm-shortcut-prompt-response-processing-mode";
+  "ask-ai-prompt-response-processing-mode";
 
 function parseNumericFileProperty(
   fileProperties: FrontMatterCache,

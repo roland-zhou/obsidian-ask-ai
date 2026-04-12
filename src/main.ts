@@ -176,7 +176,7 @@ export default class LlmShortcutPlugin extends Plugin {
 
     // Use Obsidian's parsed frontmatter if available
     if (!metadata?.frontmatter || !metadata.frontmatterPosition) {
-      logger.debug(`LLM Shortcut: No frontmatter found for file: ${file.path}`);
+      logger.debug(`Ask AI: No frontmatter found for file: ${file.path}`);
       return {
         userPromptName,
         userPromptString: fileContent,
@@ -218,7 +218,7 @@ export default class LlmShortcutPlugin extends Plugin {
             title,
             message: error instanceof Error ? error.message : "Unknown error",
           });
-          logger.error(`LLM Shortcut: ${title}`, error);
+          logger.error(`Ask AI: ${title}`, error);
         }
       },
     };
@@ -239,7 +239,7 @@ export default class LlmShortcutPlugin extends Plugin {
     const file = this.app.vault.getFileByPath(promptFilePath);
 
     if (!file) {
-      throw new Error(`LLM Shortcut: Prompt file not found: ${promptFilePath}`);
+      throw new Error(`Ask AI: Prompt file not found: ${promptFilePath}`);
     }
 
     const userPromptParams = await this.parseUserPromptFromFile(file);
@@ -450,7 +450,7 @@ export default class LlmShortcutPlugin extends Plugin {
     const userPromptName = this.settings.customPromptCommandLabel;
 
     const command = {
-      id: "llm-shortcut-custom-prompt",
+      id: "ask-ai-custom-prompt",
       name: userPromptName,
       editorCallback: (editor: Editor) => {
         new CustomPromptModal(

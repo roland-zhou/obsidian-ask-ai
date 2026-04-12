@@ -5,7 +5,7 @@ function handleAuthenticationError(): ErrorNotificationOptions {
     title: "🔑 Authentication Error",
     message: "Your API key is invalid or has expired.",
     suggestions: [
-      "Check your API key in Settings → LLM Shortcut",
+      "Check your API key in Settings → Ask AI",
       "Generate a new API key from your provider",
       "Ensure the API key is copied correctly",
     ],

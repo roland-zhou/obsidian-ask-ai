@@ -116,7 +116,7 @@ export class SettingTab extends PluginSettingTab {
       .setHeading();
 
     containerEl.createEl("p", {
-      text: "These defaults apply to all prompts. To override a specific prompt, add the corresponding file property to its frontmatter (e.g. llm-shortcut-selection-mode: selection-only).",
+      text: "These defaults apply to all prompts. To override a specific prompt, add the corresponding file property to its frontmatter (e.g. ask-ai-selection-mode: selection-only).",
       cls: "setting-item-description",
     });
 

@@ -1,5 +1,5 @@
 {
-  "name": "obsidian-llm-shortcut",
+  "name": "obsidian-ask-ai",
   "type": "module",
   "version": "0.14.0",
   "main": "main.js",

@@ -4,11 +4,11 @@
 
 ---
 
-[![downloads shield](https://img.shields.io/badge/dynamic/json?logo=obsidian&color=%23483699&label=downloads&query=%24%5B%22llm-shortcut%22%5D.downloads&url=https%3A%2F%2Fraw.githubusercontent.com%2Fobsidianmd%2Fobsidian-releases%2Fmaster%2Fcommunity-plugin-stats.json)](https://www.obsidianstats.com/plugins/llm-shortcut)
+[![downloads shield](https://img.shields.io/badge/dynamic/json?logo=obsidian&color=%23483699&label=downloads&query=%24%5B%22ask-ai%22%5D.downloads&url=https%3A%2F%2Fraw.githubusercontent.com%2Fobsidianmd%2Fobsidian-releases%2Fmaster%2Fcommunity-plugin-stats.json)](https://www.obsidianstats.com/plugins/ask-ai)
 
 Turn Markdown prompt files into Obsidian commands.
 
-`LLM Shortcut` maps your prompt library folder to command palette entries, then runs the selected prompt against the active note using any OpenAI-compatible provider.
+`Ask AI` maps your prompt library folder to command palette entries, then runs the selected prompt against the active note using any OpenAI-compatible provider.
 
 ## Why this plugin
 
@@ -41,7 +41,7 @@ You have to use your own LLM provider and keys :)
 
 ## 2-minute quick start
 
-1. Install `LLM Shortcut` from Community Plugins.
+1. Install `Ask AI` from Community Plugins.
 2. Open plugin settings and fill:
    - `🔑 API key`
    - `🌐 Base URL` (example: `https://api.openai.com/v1`)
@@ -55,7 +55,7 @@ Keep the original meaning, but make it clearer and more concise.
 ```
 
 5. Open any note, select text (or place cursor), then run command:
-   - `LLM Shortcut: Writing / Improve`
+   - `Ask AI: Writing / Improve`
 
 > The better you are with the prompting, the better results you get, it's mostly on you :)
 
@@ -65,7 +65,7 @@ Keep the original meaning, but make it clearer and more concise.
 
 This feature is a “show result, don’t edit my note” mode. Normally, this plugin writes the AI response directly into your note (at cursor/selection).
 
-If you set this in your prompt file frontmatter: `llm-shortcut-prompt-response-processing-mode: info` the response is shown in a popup window instead.
+If you set this in your prompt file frontmatter: `ask-ai-prompt-response-processing-mode: info` the response is shown in a popup window instead.
 
 The popup opens with your prompt name as the title, shows a loading state, then streams in the AI answer live.
 
@@ -81,7 +81,7 @@ Some prompts work best when applied to a specific selection of text. You can mar
 
 ```yaml
 ---
-llm-shortcut-selection-mode: selection-only
+ask-ai-selection-mode: selection-only
 ---
 Your prompt content here...
 ```
@@ -106,14 +106,14 @@ To configure the context size, add these parameters to your prompt file's frontm
 
 ```yaml
 ---
-llm-shortcut-context-size-before: 256
-llm-shortcut-context-size-after: 0
+ask-ai-context-size-before: 256
+ask-ai-context-size-after: 0
 ---
 Your prompt content here...
 ```
 
-- `llm-shortcut-context-size-before`: Number of characters to include before the selection (default: entire file)
-- `llm-shortcut-context-size-after`: Number of characters to include after the selection (default: entire file)
+- `ask-ai-context-size-before`: Number of characters to include before the selection (default: entire file)
+- `ask-ai-context-size-after`: Number of characters to include after the selection (default: entire file)
 
 ## Built-in command: custom prompt
 

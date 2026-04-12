@@ -1,7 +1,7 @@
 ---
-llm-shortcut-context-size-before: "256"
-llm-shortcut-context-size-after: "256"
-llm-shortcut-selection-mode: selection-only
+ask-ai-context-size-before: "256"
+ask-ai-context-size-after: "256"
+ask-ai-selection-mode: selection-only
 ---
 Your sole job is to make one improvement in the text.
 

@@ -1,8 +1,8 @@
 ---
-llm-shortcut-selection-mode: selection-only
-llm-shortcut-context-size-before: "256"
-llm-shortcut-context-size-after: "256"
-llm-shortcut-prompt-response-processing-mode: info
+ask-ai-selection-mode: selection-only
+ask-ai-context-size-before: "256"
+ask-ai-context-size-after: "256"
+ask-ai-prompt-response-processing-mode: info
 ---
 I want to learn the selected word in a foreign language, provide me with all the necessary information according to the template below. Treat <text in angle brackets> together with the brackets as macros. The description should be in English and contain a maximum of 128 words.
 ## Template

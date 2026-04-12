@@ -1,9 +1,9 @@
 {
-  "id": "llm-shortcut",
-  "name": "LLM Shortcut",
+  "id": "ask-ai",
+  "name": "Ask AI",
   "version": "0.14.0",
   "minAppVersion": "0.15.0",
-  "description": "Provides a way to create shortcuts for commands powered by LLM capabilities.",
+  "description": "Provides a way to create shortcuts for commands powered by AI capabilities.",
   "author": "chernodubv",
   "authorUrl": "https://chernodub.dev",
   "isDesktopOnly": false

@@ -63,7 +63,7 @@ export const PROMPT_OPTION_DEFINITIONS = [
     key: "shouldHandleSelectionOnly",
     settingName: "Selection mode",
     settingDesc:
-      "Whether prompts require text to be selected. Can be overridden per-prompt via the llm-shortcut-selection-mode file property.",
+      "Whether prompts require text to be selected. Can be overridden per-prompt via the ask-ai-selection-mode file property.",
     renderSetting(setting, currentValue, onChange) {
       setting.addDropdown((dropdown) =>
         dropdown
@@ -82,21 +82,21 @@ export const PROMPT_OPTION_DEFINITIONS = [
     key: "contextSizeBefore",
     settingName: "Context size before selection",
     settingDesc:
-      "Number of characters to include before the selection. Leave empty for unlimited. Can be overridden per-prompt via the llm-shortcut-context-size-before file property.",
+      "Number of characters to include before the selection. Leave empty for unlimited. Can be overridden per-prompt via the ask-ai-context-size-before file property.",
     renderSetting: renderNumericOption,
   }),
   defineOption({
     key: "contextSizeAfter",
     settingName: "Context size after selection",
     settingDesc:
-      "Number of characters to include after the selection. Leave empty for unlimited. Can be overridden per-prompt via the llm-shortcut-context-size-after file property.",
+      "Number of characters to include after the selection. Leave empty for unlimited. Can be overridden per-prompt via the ask-ai-context-size-after file property.",
     renderSetting: renderNumericOption,
   }),
   defineOption({
     key: "promptResponseProcessingMode",
     settingName: "Response processing mode",
     settingDesc:
-      "How to handle the LLM response. Can be overridden per-prompt via the llm-shortcut-prompt-response-processing-mode file property.",
+      "How to handle the LLM response. Can be overridden per-prompt via the ask-ai-prompt-response-processing-mode file property.",
     renderSetting(setting, currentValue, onChange) {
       const options: Record<string, string> = {};
       for (const mode of ALL_PROMPT_RESPONSE_PROCESSING_MODES) {

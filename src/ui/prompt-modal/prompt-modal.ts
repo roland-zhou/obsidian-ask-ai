@@ -10,7 +10,7 @@ export class CustomPromptModal extends Modal {
   constructor(
     app: App,
     private readonly handler: (text: string) => Promise<void>,
-    private readonly heading: string = "LLM Shortcut",
+    private readonly heading: string = "Ask AI",
   ) {
     super(app);
     this.setTitle(this.heading);
