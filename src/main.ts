@@ -1,4 +1,5 @@
 import {
+  addIcon,
   App,
   Command,
   Editor,
@@ -211,6 +212,7 @@ export default class LlmShortcutPlugin extends Plugin {
     const command: Command = {
       id: promptFilePath,
       name,
+      icon: registerLetterIcon(name),
       editorCallback: async (editor: Editor) => {
         try {
           await this.handleRespond(promptFilePath, editor);
@@ -483,6 +485,7 @@ export default class LlmShortcutPlugin extends Plugin {
     const command = {
       id: "ask-ai-custom-prompt",
       name: userPromptName,
+      icon: registerLetterIcon(userPromptName),
       editorCallback: (editor: Editor) => {
         new CustomPromptModal(
           this.app,
@@ -534,4 +537,15 @@ function incChar(cursor: EditorPosition, char: number) {
     ...cursor,
     ch: cursor.ch + char,
   };
+}
+
+function registerLetterIcon(name: string): string {
+  const lastSegment = name.split(" / ").at(-1) ?? name;
+  const chars = lastSegment.trim().slice(0, 2).toUpperCase() || "??";
+  const iconId = `ask-ai-letter-${chars.toLowerCase()}`;
+  addIcon(
+    iconId,
+    `<text x="50" y="68" text-anchor="middle" font-size="52" font-weight="bold" font-family="sans-serif" fill="currentColor">${chars}</text>`,
+  );
+  return iconId;
 }
